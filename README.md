@@ -1,4 +1,4 @@
-setup for Retrieval-Augmented Generation (RAG) Model for QA Bot [text](<Retrieval-Augmented Generation (RAG) Model for QA Bot>)
+setup for [Retrieval-Augmented Generation (RAG) Model for QA Bot](<Retrieval-Augmented Generation (RAG) Model for QA Bot>)
 
 Requirements: faiss-cpu, cohere, PyPDF2, numpy.
 
