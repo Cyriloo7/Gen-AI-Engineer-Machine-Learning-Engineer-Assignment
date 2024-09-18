@@ -5,3 +5,5 @@ PyPDF2
 cohere
 faiss-cpu
 faiss
+
+- r
