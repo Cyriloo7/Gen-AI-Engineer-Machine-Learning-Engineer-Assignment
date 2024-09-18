@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 import numpy as np
 from src.components.read_pdf_file import PDFFileReader
 from src.components.document_embedding import DocumentEmbedding
@@ -19,6 +19,15 @@ SplitIntoChunks = SplitIntoChunks()
 st.title("Interactive QA Bot with Document Upload")
 st.write("Upload up to 3 PDF documents and ask questions based on their content.")
 
+# Display instructions for the user
+st.markdown("""
+### Instructions:
+1. **Upload PDF Files**: You can upload up to 3 PDF files.
+2. **Ask a Question**: After the documents are processed, input a question based on their content.
+3. **View Answer**: The bot will provide a response based on the content from the uploaded files.
+4. **See Relevant Document Segments**: The relevant document segments are displayed with similarity scores.
+""")
+
 # Button to start a new conversation
 if st.button("Start New Conversation"):
     st.session_state.conversation_history = []
@@ -31,8 +40,8 @@ if st.button("Start New Conversation"):
 uploaded_files = st.file_uploader("Choose PDF files", type="pdf", accept_multiple_files=True)
 
 if uploaded_files:
-    if len(uploaded_files) > 3:
-        st.warning("You can only upload up to 3 files. Only the first 3 will be processed.")
+    if len(uploaded_files) > 5:
+        st.warning("You can only upload up to 5 files. Only the first 5 will be processed.")
         uploaded_files = uploaded_files[:3]
 
     with st.spinner('Processing documents...'):
@@ -73,8 +82,8 @@ if uploaded_files:
         st.sidebar.title("Conversation History")
         if st.session_state.conversation_history:
             for i, item in enumerate(st.session_state.conversation_history):
-                st.sidebar.write(f"**User Query {i+1}:** {item['query']}")
-                st.sidebar.write(f"**Response {i+1}:** {item['response']}\n")
+                st.sidebar.markdown(f"**User Query {i+1}:** {item['query']}")
+                st.sidebar.markdown(f"**Response {i+1}:** {item['response']}\n")
 
         # User query section
         user_query = st.text_input("Ask a question about the documents:")
@@ -90,45 +99,26 @@ if uploaded_files:
                     st.session_state.combined_context = combined_context
 
                     # Display the initial answer based on all relevant segments
-                    if st.session_state.selected_chunk is None:
-                        with st.spinner('Generating answer from all relevant segments...'):
-                            prompt = f"""
-                            **Context/Knowledge**: {combined_context} \n\n 
-                            **Query**: {user_query} \n\n 
-                            **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
-                            """
-                            initial_response = GenerateResponse.generate_response_from_prompt(prompt)
-                            st.session_state.initial_response = initial_response
-                            st.write(st.session_state.initial_response)
-                    else:
-                        # Display the selected document segment and response for that segment
-                        st.subheader("Selected Document Segment")
-                        st.write(st.session_state.selected_chunk)
+                    with st.spinner('Generating answer from all relevant segments...'):
+                        prompt = f"""
+                        **Context/Knowledge**: {combined_context} \n\n 
+                        **Query**: {user_query} \n\n 
+                        **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
+                        **Response** : 
+                        """
+                        initial_response = GenerateResponse.generate_response_from_prompt(prompt)
+                        st.session_state.initial_response = initial_response
+                        st.markdown(f"**Response:** {st.session_state.initial_response}")
 
-                        with st.spinner('Generating answer for selected segment...'):
-                            prompt = f"""
-                            **Context/Knowledge**: {st.session_state.selected_chunk} \n\n 
-                            **Query**: {user_query} \n\n 
-                            **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
-                            """
-                            segment_response = GenerateResponse.generate_response_from_prompt(prompt)
-                            st.write(segment_response)
+                    # Display relevant document segments
+                    st.subheader("Relevant Document Segments:")
+                    for i, (chunk, score) in enumerate(relevant_chunks):
+                        st.markdown(f"**Segment {i+1}:** (Relevance Score: {score:.4f})")
+                        st.markdown(chunk)
 
                 else:
                     st.session_state.initial_response = "No relevant information found in the documents."
-
-                # Display relevant document segments and buttons
-                num_chunks = len(relevant_chunks)
-                num_columns = 4
-                columns = st.columns(num_columns)
-
-                for i, (chunk, score) in enumerate(relevant_chunks):
-                    col_index = i % num_columns
-                    with columns[col_index]:
-                        if st.button(f"Show segment {i+1} with distance {score:.4f}", key=f"button_{i}"):
-                            st.session_state.selected_chunk = chunk
-                            st.session_state.selected_chunk_index = i
-                        st.write(f"Distance: {score:.4f}")
+                    st.markdown(f"**Response:** {st.session_state.initial_response}")
 
             # Manage conversation history and count
             if st.session_state.conversation_count >= 30:

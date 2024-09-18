@@ -15,10 +15,10 @@ class GenerateResponse:
             stream = self.co.chat_stream(
                 model='command-r-plus-08-2024',
                 message=prompt,
-                temperature=0.4,
+                temperature=0.8,
                 chat_history=[],
                 prompt_truncation='AUTO',
-                connectors=[{"id":"web-search"}],
+                #connectors=[{"id":"web-search"}],
                 max_tokens=4096
             )
 
@@ -26,6 +26,7 @@ class GenerateResponse:
             for event in stream:
                 if event.event_type == "text-generation":
                     generated_text += event.text
+
 
             return generated_text
 

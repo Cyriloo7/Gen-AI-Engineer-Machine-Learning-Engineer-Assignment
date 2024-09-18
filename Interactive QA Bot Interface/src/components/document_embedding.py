@@ -17,7 +17,7 @@ class DocumentEmbedding:
             for i in range(0, len(texts), batch_size):
 
                 batch = texts[i:i+batch_size]
-                response = self.co.embed(texts=batch, model="embed-multilingual-v3.0", input_type="search_document", truncate='START')
+                response = self.co.embed(texts=batch, model="embed-multilingual-v3.0", input_type="search_document", truncate='END')
                 embeddings.extend(response.embeddings)
 
             return np.vstack(embeddings)

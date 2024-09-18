@@ -17,12 +17,11 @@ class RetriveReleventDocs:
     def retrieve(self, query, index, chunks, k=10, score_threshold=0.4):
         try:
             # Generate embedding for the query
-            query_embed = self.co.embed(texts=[query], model="embed-multilingual-v3.0", input_type="search_document", truncate='START').embeddings
+            query_embed = self.co.embed(texts=[query], model="embed-multilingual-v3.0", input_type="search_document", truncate='END').embeddings
 
             # Search the FAISS index for the k most relevant document chunks
             normalized_query_embed = self.normalize(np.array(query_embed).astype(np.float32))
             D, I = index.search(normalized_query_embed, k)
-            print(D, I)
 
             # Extract the chunks and their scores
             results = [(chunks[i], float(D[0][j])) for j, i in enumerate(I[0])]
