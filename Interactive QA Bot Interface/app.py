@@ -90,20 +90,36 @@ if uploaded_files:
                     st.session_state.combined_context = combined_context
 
                     # Display the initial answer based on all relevant segments
-                    with st.spinner('Generating initial answer...'):
-                        prompt = f"""
-                        **Context/Knowledge**: {combined_context} \n\n 
-                        **Query**: {user_query} \n\n 
-                        **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
-                        """
-                        initial_response = GenerateResponse.generate_response_from_prompt(prompt)
-                    st.session_state.initial_response = initial_response
+                    if st.session_state.selected_chunk is None:
+                        with st.spinner('Generating answer from all relevant segments...'):
+                            prompt = f"""
+                            **Context/Knowledge**: {combined_context} \n\n 
+                            **Query**: {user_query} \n\n 
+                            **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
+                            """
+                            initial_response = GenerateResponse.generate_response_from_prompt(prompt)
+                            st.session_state.initial_response = initial_response
+                            st.write(st.session_state.initial_response)
+                    else:
+                        # Display the selected document segment and response for that segment
+                        st.subheader("Selected Document Segment")
+                        st.write(st.session_state.selected_chunk)
+
+                        with st.spinner('Generating answer for selected segment...'):
+                            prompt = f"""
+                            **Context/Knowledge**: {st.session_state.selected_chunk} \n\n 
+                            **Query**: {user_query} \n\n 
+                            **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
+                            """
+                            segment_response = GenerateResponse.generate_response_from_prompt(prompt)
+                            st.write(segment_response)
+
                 else:
                     st.session_state.initial_response = "No relevant information found in the documents."
 
                 # Display relevant document segments and buttons
                 num_chunks = len(relevant_chunks)
-                num_columns = 3
+                num_columns = 4
                 columns = st.columns(num_columns)
 
                 for i, (chunk, score) in enumerate(relevant_chunks):
@@ -113,31 +129,6 @@ if uploaded_files:
                             st.session_state.selected_chunk = chunk
                             st.session_state.selected_chunk_index = i
                         st.write(f"Distance: {score:.4f}")
-
-                # Display the initial answer based on all relevant segments
-                if 'initial_response' in st.session_state:
-                    st.subheader("Answer Based on All Relevant Segments")
-                    st.write(st.session_state.initial_response)
-
-                # Display the selected document segment and response for that segment
-                if st.session_state.selected_chunk:
-                    col1, col2 = st.columns([1, 1])
-
-                    with col1:
-                        st.subheader("Selected Document Segment")
-                        st.write(st.session_state.selected_chunk)
-
-                    with col2:
-                        st.subheader("Generated Answer for Selected Segment")
-                        if st.session_state.selected_chunk:
-                            with st.spinner('Generating answer for selected segment...'):
-                                prompt = f"""
-                                **Context/Knowledge**: {st.session_state.selected_chunk} \n\n 
-                                **Query**: {user_query} \n\n 
-                                **Instruction**: If you do not have enough information to answer the question, clearly state that you cannot provide an answer based on the current context. Do not fabricate or make up information.
-                                """
-                                segment_response = GenerateResponse.generate_response_from_prompt(prompt)
-                                st.write(segment_response)
 
             # Manage conversation history and count
             if st.session_state.conversation_count >= 30:

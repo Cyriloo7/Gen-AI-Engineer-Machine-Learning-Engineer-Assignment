@@ -7,7 +7,7 @@ import cohere
 class GenerateResponse:
     def __init__(self):
         logger.info("Generating response from prompt")
-        self.co = cohere.Client('SGXUJ2vUDqaNNpJwh1ffmo1PFkGmN50W6ghcW4UA')
+        self.co = cohere.Client('6aqPnWpIVEDJ4VxllhTTMLj0fhsG8xtNmOYZ100I')
         pass
 
     def generate_response_from_prompt(self, prompt):
@@ -18,7 +18,7 @@ class GenerateResponse:
                 temperature=0.4,
                 chat_history=[],
                 prompt_truncation='AUTO',
-                #connectors=[{"id":"web-search"}],
+                connectors=[{"id":"web-search"}],
                 max_tokens=4096
             )
 

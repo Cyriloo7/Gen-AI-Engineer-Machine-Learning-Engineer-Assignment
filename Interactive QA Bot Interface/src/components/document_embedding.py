@@ -8,7 +8,7 @@ from src.logger.logger import logger
 class DocumentEmbedding:
     def __init__(self):
         logger.info("Document Embedding Class In Progress")
-        self.co = cohere.Client('SGXUJ2vUDqaNNpJwh1ffmo1PFkGmN50W6ghcW4UA')
+        self.co = cohere.Client('6aqPnWpIVEDJ4VxllhTTMLj0fhsG8xtNmOYZ100I')
         pass
 
     def create_embeddings(self, texts, batch_size=40):
@@ -17,7 +17,7 @@ class DocumentEmbedding:
             for i in range(0, len(texts), batch_size):
 
                 batch = texts[i:i+batch_size]
-                response = self.co.embed(texts=batch, model="embed-english-v3.0", input_type="search_document")
+                response = self.co.embed(texts=batch, model="embed-multilingual-v3.0", input_type="search_document", truncate='START')
                 embeddings.extend(response.embeddings)
 
             return np.vstack(embeddings)

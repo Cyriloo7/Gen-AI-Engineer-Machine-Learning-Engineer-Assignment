@@ -9,7 +9,7 @@ class SplitIntoChunks:
         pass
 
     # Function to split document text into smaller chunks
-    def split_text(self, text, chunk_size=1000):
+    def split_text(self, text, chunk_size=500):
         try:
             logger.info("Splitting document text into smaller chunks")
             words = text.split()
