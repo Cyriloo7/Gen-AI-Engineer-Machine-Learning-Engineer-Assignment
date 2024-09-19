@@ -7,7 +7,7 @@ import cohere
 class RetriveReleventDocs:
     def __init__(self):
         logger.info("Retrieving documentation from the vector database")
-        self.co = cohere.Client('COHERE_API')
+        self.co = cohere.Client(${{secrets.COHERE_API}})
         pass
 
     def normalize(self, embedding):
