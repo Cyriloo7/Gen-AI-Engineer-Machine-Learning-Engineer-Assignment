@@ -26,7 +26,7 @@ jobs:
       run: docker pull cyriljose/interactive_qa_bot:1.0
 
     - name: Build the Docker image
-      run: docker build --file Dockerfile --tag cyriljose/interactive_qa_bot:1.0 .
+      run: docker build --file Interactive_QA_Bot_Interface/Dockerfile --tag cyriljose/interactive_qa_bot:1.0 .
 
     - name: Push the Docker image
       run: docker push cyriljose/interactive_qa_bot:1.0
