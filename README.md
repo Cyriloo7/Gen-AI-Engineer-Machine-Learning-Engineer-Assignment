@@ -11,10 +11,10 @@ Part 2: [Interactive QA Bot Interface](<Interactive_QA_Bot_Interface>)
  Docker Hub pull command: 
 ```bash
 docker pull cyriljose/interactive_qa_bot:1.0
-
+```
 
  requirments.txt
-```basg
+```bash
 streamlit
 pandas
 numpy
