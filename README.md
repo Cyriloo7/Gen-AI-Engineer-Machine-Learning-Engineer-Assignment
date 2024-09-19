@@ -8,4 +8,5 @@ Architecture:
 
 Part 2: [Interactive QA Bot Interface](<>)
 
-Docker pull command: docker pull cyriljose/interactive_qa_bot:1.0
+Docker pull command: 
+''' docker pull cyriljose/interactive_qa_bot:1.0
