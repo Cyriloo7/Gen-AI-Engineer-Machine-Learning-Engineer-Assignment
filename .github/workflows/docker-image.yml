@@ -26,10 +26,10 @@ jobs:
       run: docker pull cyriljose/interactive_qa_bot:1.0
 
     - name: Build the Docker image
-      run: docker build --file Dockerfile --tag interactive_qa_bot:1.0 .
+      run: docker build --file Dockerfile --tag cyriljose/interactive_qa_bot:1.0 .
 
     - name: Push the Docker image
-      run: docker push interactive_qa_bot:1.0
+      run: docker push cyriljose/interactive_qa_bot:1.0
 
     - name: Log out of Docker Hub
       run: docker logout
