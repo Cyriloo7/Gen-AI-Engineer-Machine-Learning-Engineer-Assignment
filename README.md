@@ -5,3 +5,7 @@ Requirements: faiss-cpu, cohere, PyPDF2, numpy.
 Architecture:
 ![RAG Model Architecture](https://github.com/user-attachments/assets/5efd11a4-56e1-4ada-a07a-daed2d2807ef)
 
+
+Part 2: [Interactive QA Bot Interface](<>)
+
+Docker pull command: docker pull cyriljose/interactive_qa_bot:1.0
