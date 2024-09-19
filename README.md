@@ -8,12 +8,13 @@ Architecture:
 
 Part 2: [Interactive QA Bot Interface](<Interactive_QA_Bot_Interface>)
 
-Docker Hub pull command: 
+ Docker Hub pull command: 
 ```bash
 docker pull cyriljose/interactive_qa_bot:1.0
 
-requirments.txt
-```
+
+ requirments.txt
+```basg
 streamlit
 pandas
 numpy
