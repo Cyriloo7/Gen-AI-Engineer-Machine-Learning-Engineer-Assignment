@@ -30,3 +30,6 @@ jobs:
 
     - name: Push the Docker image
       run: docker push my-image-name:$(date +%s)
+
+    - name: Log out of Docker Hub
+      run: docker logout
