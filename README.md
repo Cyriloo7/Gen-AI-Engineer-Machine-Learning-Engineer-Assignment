@@ -21,3 +21,4 @@ numpy
 PyPDF2
 cohere
 faiss-cpu
+```
