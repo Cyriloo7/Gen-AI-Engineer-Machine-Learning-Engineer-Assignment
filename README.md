@@ -9,6 +9,6 @@ Architecture:
 Part 2: [Interactive QA Bot Interface](<Interactive_QA_Bot_Interface>)
 
 Docker pull command: 
-'''docker pull cyriljose/interactive_qa_bot:1.0
-```bash
-npm install your-package-name
+'''bash
+docker pull cyriljose/interactive_qa_bot:1.0
+
