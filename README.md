@@ -6,7 +6,7 @@ Architecture:
 ![RAG Model Architecture](https://github.com/user-attachments/assets/5efd11a4-56e1-4ada-a07a-daed2d2807ef)
 
 
-Part 2: [Interactive QA Bot Interface](<>)
+Part 2: [Interactive QA Bot Interface](<Interactive_QA_Bot_Interface>)
 
 Docker pull command: 
-''' docker pull cyriljose/interactive_qa_bot:1.0
+'''docker pull cyriljose/interactive_qa_bot:1.0
