@@ -2,7 +2,7 @@
 FROM python:3.9
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /app/Interactive_QA_Bot_Interface
 
 # Copy the current directory contents into the container at /app
 COPY Interactive_QA_Bot_Interface/ .
