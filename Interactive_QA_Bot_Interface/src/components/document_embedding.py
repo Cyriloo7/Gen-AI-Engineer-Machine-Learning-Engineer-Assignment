@@ -8,9 +8,7 @@ from src.logger.logger import logger
 class DocumentEmbedding:
     def __init__(self):
         logger.info("Document Embedding Class In Progress")
-        cohere_api_key = os.environ.get("COHERE_API_KEY")
-        self.co = cohere.Client(cohere_api_key)
-        #self.co = cohere.Client(${{secrets.COHERE_API}})
+        self.co = "cVm83R5JH4xU5K7FgGqcJRn2YSrPYmYAx8f9hQUh"
         pass
 
     def create_embeddings(self, texts, batch_size=40):
