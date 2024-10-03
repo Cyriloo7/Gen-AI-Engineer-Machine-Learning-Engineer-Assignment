@@ -36,8 +36,6 @@ jobs:
         docker buildx build \
           --file Interactive_QA_Bot_Interface/Dockerfile \
           --tag cyriljose/interactive_qa_bot:1.0 \
-          --cache-from=type=registry,ref=cyriljose/interactive_qa_bot:cache \
-          --cache-to=type=registry,ref=cyriljose/interactive_qa_bot:cache,mode=max \
           --push .
 
     # Push the Docker image to Docker Hub
