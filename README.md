@@ -27,6 +27,11 @@ Run the Application
 docker run -p 8501:8501 cyriljose/interactive_qa_bot:1.0
 ```
 
+Open any browser and go to 
+```
+http://localhost:8501/
+```
+
 Requirments.txt
 ```bash
 streamlit
