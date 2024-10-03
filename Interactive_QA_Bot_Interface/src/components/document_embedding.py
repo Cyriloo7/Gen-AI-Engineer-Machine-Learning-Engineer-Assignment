@@ -8,7 +8,7 @@ from src.logger.logger import logger
 class DocumentEmbedding:
     def __init__(self):
         logger.info("Document Embedding Class In Progress")
-        self.co = "cVm83R5JH4xU5K7FgGqcJRn2YSrPYmYAx8f9hQUh"
+        self.co = "COHERE_API"
         pass
 
     def create_embeddings(self, texts, batch_size=40):
