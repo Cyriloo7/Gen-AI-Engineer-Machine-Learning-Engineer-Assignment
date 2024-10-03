@@ -11,25 +11,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Checkout the repository
     - uses: actions/checkout@v4
 
+    # Set up Docker Buildx for multi-platform builds
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
+    # Log in to Docker Hub using stored secrets
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    # Pull base image if it already exists (optional step)
     - name: Pull base image
-      run: docker pull cyriljose/interactive_qa_bot:1.0
+      run: docker pull cyriljose/interactive_qa_bot:1.0 || true  # Fails gracefully if image doesn't exist
 
+    # Build the Docker image using caching
     - name: Build the Docker image
-      run: docker build --file Interactive_QA_Bot_Interface/Dockerfile --tag cyriljose/interactive_qa_bot:1.0 .
+      run: |
+        docker buildx create --use
+        docker buildx build \
+          --file Interactive_QA_Bot_Interface/Dockerfile \
+          --tag cyriljose/interactive_qa_bot:1.0 \
+          --cache-from=type=registry,ref=cyriljose/interactive_qa_bot:cache \
+          --cache-to=type=registry,ref=cyriljose/interactive_qa_bot:cache,mode=max \
+          --push .
 
+    # Push the Docker image to Docker Hub
     - name: Push the Docker image
       run: docker push cyriljose/interactive_qa_bot:1.0
 
+    # Log out from Docker Hub
     - name: Log out of Docker Hub
       run: docker logout
+
