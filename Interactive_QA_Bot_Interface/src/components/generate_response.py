@@ -7,7 +7,7 @@ import cohere
 class GenerateResponse:
     def __init__(self):
         logger.info("Generating response from prompt")
-        self.co = "cVm83R5JH4xU5K7FgGqcJRn2YSrPYmYAx8f9hQUh"
+        self.co = "COHERE_API"
         pass
 
     def generate_response_from_prompt(self, prompt):
