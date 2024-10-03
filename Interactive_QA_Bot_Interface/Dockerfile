@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8501
 
 # Run the Streamlit app
-CMD ["streamlit", "run", "app.py"]
+CMD ["Interactive_QA_Bot_Interface","streamlit", "run", "app.py"]
