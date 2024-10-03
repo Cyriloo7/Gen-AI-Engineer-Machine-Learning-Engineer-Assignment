@@ -14,5 +14,8 @@ RUN pip install -r requirements.txt
 # Expose port 8501 for Streamlit
 EXPOSE 8501
 
+# Set environment variable for COHERE_API (default to an empty string if not provided)
+ENV COHERE_API=${COHERE_API}
+
 # Run the Streamlit app
 CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
