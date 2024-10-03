@@ -5,14 +5,14 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . /app
+COPY . .
 
 # Install any necessary packages specified in requirements.txt
 RUN pip install --upgrade pip
-RUN pip install -r /app/Interactive_QA_Bot_Interface/requirements.txt  # Absolute path
+RUN pip install -r Interactive_QA_Bot_Interface/requirements.txt  
 
 # Expose port 8501 for Streamlit
 EXPOSE 8501
 
 # Run the Streamlit app
-CMD ["streamlit", "run", "/app/Interactive_QA_Bot_Interface/app.py", "--server.port=8501", "--server.address=0.0.0.0"]  # Absolute path
+CMD ["streamlit", "run", "Interactive_QA_Bot_Interface/app.py", "--server.port=8501", "--server.address=0.0.0.0"]  
